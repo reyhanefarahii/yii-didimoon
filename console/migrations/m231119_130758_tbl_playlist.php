@@ -40,29 +40,10 @@ class m231119_130758_tbl_playlist extends Migration
 
         ], $tableOptions);
 
-        // $this->addForeignKey(
-        //     '{{%tbl_channel}}',
-        //     '{{%tbl_playlist}}',
-        //     'channel_id',
-        //     '{{%tbl_channel}}',
-        //     'id',
-        //     'CASCADE'
-        // );
-//         $this->addForeignKey($user_id, $channel_id);
         $this->addForeignKey('fk-ch-id', 'tbl_playlist', 'channel_id', 'tbl_channel', 'id',
             'CASCADE', 'CASCADE');
         $this->addForeignKey('fk-usr-id', 'tbl_playlist', 'user_id', '{{%user}}', 'id',
         'CASCADE', 'CASCADE');
-//        $this->addForeignKey(
-//            '{{%user}}'&'{{tbl_channel}}',
-//            '{{%tbl_playlist}}',
-//            'user_id'&'channel_id',
-//            '{{%user}}'&'{{tbl_channel}}',
-//            'id',
-//            'CASCADE'
-//        );
-
-
     }
 
     /**
