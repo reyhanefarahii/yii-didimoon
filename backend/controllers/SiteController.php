@@ -3,7 +3,9 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
+use common\models\User;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -31,7 +33,7 @@ class SiteController extends Controller
 
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index','users'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -118,6 +120,25 @@ class SiteController extends Controller
 
         return $this->render('signup', [
             'model' => $model,
+        ]);
+    }
+    public function actionUsers()
+    {
+        $query = User::find();
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 5,
+            'totalCount' => $query->count(),
+        ]);
+
+        $countries = $query->orderBy('username')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('users', [
+            'countries' => $countries,
+            'pagination' => $pagination,
         ]);
     }
 }
